@@ -9,13 +9,13 @@ server-->browser: main.js
 
 note over browser:
 browser starts executing js-code
-that requests JSON data from server 
+that requests data.json from server 
 end note
 
 browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
 server-->browser: [...,{"content": "hola","date": "2023-07-24T10:27:33.636Z"}]
 
 note over browser:
-browser executes the event handler
+browser executes the code
 that renders notes to display
 end note
