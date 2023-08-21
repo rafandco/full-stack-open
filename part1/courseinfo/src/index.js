@@ -10,11 +10,15 @@ const App = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
-
+  // handle clicks functions
   const handleClickGood = () => setGood(good + 1);
   const handleClickNeutral = () => setNeutral(neutral + 1);
   const handleClickBad = () => setBad(bad + 1);
-
+  // data for statistics
+  const clicks = good + neutral + bad;
+  const positiveClicks = clicks === 0 ? 0 : (good / clicks)*100;
+  const averageClicks =
+    clicks === 0 ? 0 : (good * 1 + neutral * 0 + bad * -1) / clicks;
   return (
     <div>
       <h1>give feedback</h1>
@@ -25,6 +29,9 @@ const App = () => {
       <p>good {good}</p>
       <p>neutral {neutral}</p>
       <p>bad {bad}</p>
+      <p>all {clicks}</p>
+      <p>average {averageClicks}</p>
+      <p>positive {positiveClicks} %</p>
     </div>
   );
 };
