@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 
 const Button = ({ onClick, text }) => {
   return <button onClick={onClick}>{text}</button>;
@@ -7,11 +7,10 @@ const Button = ({ onClick, text }) => {
 
 const StatisticLine = ({ text, value }) => {
   return (
-    <div>
-      <p>
-        {text} {value}
-      </p>
-    </div>
+    <tr>
+      <td>{text}</td>
+      <td>{value}</td>
+    </tr>
   );
 };
 
@@ -29,14 +28,16 @@ const Statistics = ({ good, neutral, bad }) => {
     );
   }
   return (
-    <div>
-      <StatisticLine text="good" value={good} />
-      <StatisticLine text="neutral" value={neutral} />
-      <StatisticLine text="bad" value={bad} />
-      <StatisticLine text="clicks" value={clicks} />
-      <StatisticLine text="average" value={averageClicks} />
-      <StatisticLine text="positive" value={positiveClicks} />
-    </div>
+    <table>
+      <tbody>
+        <StatisticLine text="good" value={good} />
+        <StatisticLine text="neutral" value={neutral} />
+        <StatisticLine text="bad" value={bad} />
+        <StatisticLine text="clicks" value={clicks} />
+        <StatisticLine text="average" value={averageClicks} />
+        <StatisticLine text="positive" value={positiveClicks} />
+      </tbody>
+    </table>
   );
 };
 
@@ -61,4 +62,6 @@ const App = () => {
   );
 };
 
-ReactDOM.render(<App />, document.getElementById("root"));
+const rootElement = document.getElementById("root");
+const root = ReactDOM.createRoot(rootElement);
+root.render(<App />);
