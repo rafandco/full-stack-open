@@ -9,10 +9,14 @@ const Statistics = ({good, neutral, bad}) => {
   // data for statistics
   const clicks = good + neutral + bad;
   const positiveClicks = clicks === 0 ? 0 : (good / clicks) * 100;
-  const averageClicks =
-    clicks === 0
-      ? 0
-      : (good * 1 + neutral * 0 + bad * -1) / clicks;
+  const averageClicks = (good * 1 + neutral * 0 + bad * -1) / clicks;
+  if (clicks === 0) {
+    return (
+      <div>
+        <p>No feedback given</p>
+      </div>
+    );
+  }
   return (
     <div>
       <p>good {good}</p>
