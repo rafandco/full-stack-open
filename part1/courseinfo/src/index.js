@@ -5,11 +5,22 @@ const Button = ({ onClick, text }) => {
   return <button onClick={onClick}>{text}</button>;
 };
 
-const Statistics = ({good, neutral, bad}) => {
+const StatisticLine = ({ text, value }) => {
+  return (
+    <div>
+      <p>
+        {text} {value}
+      </p>
+    </div>
+  );
+};
+
+const Statistics = ({ good, neutral, bad }) => {
   // data for statistics
   const clicks = good + neutral + bad;
-  const positiveClicks = clicks === 0 ? 0 : (good / clicks) * 100;
   const averageClicks = (good * 1 + neutral * 0 + bad * -1) / clicks;
+  const positiveClicks = (good / clicks) * 100 + " %";
+  // conditional rendering
   if (clicks === 0) {
     return (
       <div>
@@ -19,12 +30,12 @@ const Statistics = ({good, neutral, bad}) => {
   }
   return (
     <div>
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>all {clicks}</p>
-      <p>average {averageClicks}</p>
-      <p>positive {positiveClicks} %</p>
+      <StatisticLine text="good" value={good} />
+      <StatisticLine text="neutral" value={neutral} />
+      <StatisticLine text="bad" value={bad} />
+      <StatisticLine text="clicks" value={clicks} />
+      <StatisticLine text="average" value={averageClicks} />
+      <StatisticLine text="positive" value={positiveClicks} />
     </div>
   );
 };
@@ -45,7 +56,7 @@ const App = () => {
       <Button onClick={handleClickNeutral} text={"neutral"} />
       <Button onClick={handleClickBad} text={"bad"} />
       <h1>statistic</h1>
-      <Statistics good = {good} neutral = {neutral} bad = {bad}/>
+      <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   );
 };
