@@ -5,7 +5,9 @@ const Button = ({ onClick, text }) => {
   return <button onClick={onClick}>{text}</button>;
 };
 
-const App = (props) => {
+const App = ({ anecdotes }) => {
+  //states
+  const [points, setPoints] = useState(new Array(anecdotes.length).fill(0));
   const [selected, setSelected] = useState(0);
   // random number generator
   const getRandomInt = (min, max) => {
@@ -13,13 +15,21 @@ const App = (props) => {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min);
   };
-  const handleClick = () => {
+  // vote function
+  const handleClickVote = () => {
+    const copyPoints = [...points];
+    copyPoints[selected] += 1;
+    setPoints(copyPoints);
+  };
+  // next anecdote function
+  const handleClickRandom = () => {
     return setSelected(getRandomInt(0, anecdotes.length));
   };
   return (
     <div>
-      <p>{props.anecdotes[selected]}</p>
-      <Button onClick={handleClick} text={"next anecdote"} />
+      <p>{anecdotes[selected]}</p>
+      <Button onClick={handleClickRandom} text={"next anecdote"} />
+      <Button onClick={handleClickVote} text={"vote"} />
     </div>
   );
 };
