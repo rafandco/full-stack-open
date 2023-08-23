@@ -1,67 +1,70 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom/client";
-
-const Button = ({ onClick, text }) => {
-  return <button onClick={onClick}>{text}</button>;
-};
-
-const StatisticLine = ({ text, value }) => {
-  return (
-    <tr>
-      <td>{text}</td>
-      <td>{value}</td>
-    </tr>
-  );
-};
-
-const Statistics = ({ good, neutral, bad }) => {
-  // data for statistics
-  const clicks = good + neutral + bad;
-  const averageClicks = (good * 1 + neutral * 0 + bad * -1) / clicks;
-  const positiveClicks = (good / clicks) * 100 + " %";
-  // conditional rendering
-  if (clicks === 0) {
-    return (
-      <div>
-        <p>No feedback given</p>
-      </div>
-    );
-  }
-  return (
-    <table>
-      <tbody>
-        <StatisticLine text="good" value={good} />
-        <StatisticLine text="neutral" value={neutral} />
-        <StatisticLine text="bad" value={bad} />
-        <StatisticLine text="clicks" value={clicks} />
-        <StatisticLine text="average" value={averageClicks} />
-        <StatisticLine text="positive" value={positiveClicks} />
-      </tbody>
-    </table>
-  );
-};
+import React from "react";
+import ReactDOM from "react-dom";
 
 const App = () => {
-  // save clicks of each button to its own state
-  const [good, setGood] = useState(0);
-  const [neutral, setNeutral] = useState(0);
-  const [bad, setBad] = useState(0);
-  // handle clicks functions
-  const handleClickGood = () => setGood(good + 1);
-  const handleClickNeutral = () => setNeutral(neutral + 1);
-  const handleClickBad = () => setBad(bad + 1);
+  const course = {
+    name: "Half Stack application development",
+    parts: [
+      {
+        name: "Fundamentals of React",
+        exercises: 10,
+      },
+      {
+        name: "Using props to pass data",
+        exercises: 7,
+      },
+      {
+        name: "State of a component",
+        exercises: 14,
+      },
+    ],
+  };
+
   return (
     <div>
-      <h1>give feedback</h1>
-      <Button onClick={handleClickGood} text={"good"} />
-      <Button onClick={handleClickNeutral} text={"neutral"} />
-      <Button onClick={handleClickBad} text={"bad"} />
-      <h1>statistic</h1>
-      <Statistics good={good} neutral={neutral} bad={bad} />
+      <Header course={course} />
+      <Content course={course} />
+      <Total course={course} />
     </div>
   );
 };
 
-const rootElement = document.getElementById("root");
-const root = ReactDOM.createRoot(rootElement);
-root.render(<App />);
+/* Otra forma de hacerlo es:
+const Header = ({course}) => <h1>{course}</h1
+*/
+const Header = (props) => {
+  console.log(props.course.parts[0]);
+  return <h1>{props.course.name}</h1>;
+};
+
+const Content = (props) => {
+  return (
+    <div>
+      <Part part={props.course.parts[0]} />
+      <Part part={props.course.parts[1]} />
+      <Part part={props.course.parts[2]} />
+    </div>
+  );
+};
+
+const Part = (props) => {
+  return (
+    <p>
+      {props.part.name} {props.part.exercises}
+    </p>
+  );
+};
+
+const Total = (props) => {
+  //console.log(props.parts);
+  return (
+    <p>
+      Number of exercises{" "}
+      {props.course.parts[0].exercises +
+        props.course.parts[1].exercises +
+        props.course.parts[2].exercises}
+    </p>
+  );
+};
+
+ReactDOM.render(<App />, document.getElementById("root"));
