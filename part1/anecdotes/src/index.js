@@ -25,11 +25,18 @@ const App = ({ anecdotes }) => {
   const handleClickRandom = () => {
     return setSelected(getRandomInt(0, anecdotes.length));
   };
+  // index of anecdote with most votes
+  const mostVotedIndex = points.indexOf(Math.max(...points));
   return (
     <div>
+      <h2>Anecdote of the day</h2>
       <p>{anecdotes[selected]}</p>
+      <p>has {points[selected]} votes</p>
       <Button onClick={handleClickRandom} text={"next anecdote"} />
       <Button onClick={handleClickVote} text={"vote"} />
+      <h2>Anecdote with most votes</h2>
+      <p>{anecdotes[mostVotedIndex]}</p>
+      <p>has {points[mostVotedIndex]} votes</p>
     </div>
   );
 };
