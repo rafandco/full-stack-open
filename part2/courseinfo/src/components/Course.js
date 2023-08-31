@@ -23,16 +23,13 @@ const Part = ({ part }) => {
 };
 
 const Total = ({ parts }) => {
-  const exercises = parts.map(part => part.exercises)
+  const exercises = parts.map((part) => part.exercises);
   const total = exercises.reduce(
     (accumulator, currentValue) => accumulator + currentValue
   );
   return (
     <p>
-      <strong>
-        Total of {total}{" "}
-         exercises.
-      </strong>
+      <strong>Total of {total} exercises.</strong>
     </p>
   );
 };
